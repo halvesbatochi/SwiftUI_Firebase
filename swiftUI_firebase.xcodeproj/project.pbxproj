@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C09B0F32F25A9AC00B0092D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5C09B0F22F25A9AC00B0092D /* GoogleSignIn */; };
+		5C09B0F52F25A9AC00B0092D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5C09B0F42F25A9AC00B0092D /* GoogleSignInSwift */; };
 		5C28CCAC2EF1A37F00D09932 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5C28CCAB2EF1A37F00D09932 /* FirebaseAnalytics */; };
 		5C28CCAE2EF1A37F00D09932 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5C28CCAD2EF1A37F00D09932 /* FirebaseAnalyticsSwift */; };
 		5CC76FBC2EF3360D002A276C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC76FBB2EF3360D002A276C /* FirebaseAuth */; };
@@ -29,7 +31,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C09B0F52F25A9AC00B0092D /* GoogleSignInSwift in Frameworks */,
 				5C28CCAE2EF1A37F00D09932 /* FirebaseAnalyticsSwift in Frameworks */,
+				5C09B0F32F25A9AC00B0092D /* GoogleSignIn in Frameworks */,
 				5CC76FBC2EF3360D002A276C /* FirebaseAuth in Frameworks */,
 				5C28CCAC2EF1A37F00D09932 /* FirebaseAnalytics in Frameworks */,
 			);
@@ -85,6 +89,8 @@
 				5C28CCAB2EF1A37F00D09932 /* FirebaseAnalytics */,
 				5C28CCAD2EF1A37F00D09932 /* FirebaseAnalyticsSwift */,
 				5CC76FBB2EF3360D002A276C /* FirebaseAuth */,
+				5C09B0F22F25A9AC00B0092D /* GoogleSignIn */,
+				5C09B0F42F25A9AC00B0092D /* GoogleSignInSwift */,
 			);
 			productName = swiftUI_firebase;
 			productReference = 5CA4F14B2EF1A04900280F81 /* swiftUI_firebase.app */;
@@ -116,6 +122,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5C28CCAA2EF1A37F00D09932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5C09B0F12F25A9AC00B0092D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5CA4F14C2EF1A04900280F81 /* Products */;
@@ -279,6 +286,7 @@
 				DEVELOPMENT_TEAM = 2K35UBXMNN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftUI-firebase-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -316,6 +324,7 @@
 				DEVELOPMENT_TEAM = 2K35UBXMNN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftUI-firebase-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -367,6 +376,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5C09B0F12F25A9AC00B0092D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = exactVersion;
+				version = 7.0.0;
+			};
+		};
 		5C28CCAA2EF1A37F00D09932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -378,6 +395,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C09B0F22F25A9AC00B0092D /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C09B0F12F25A9AC00B0092D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		5C09B0F42F25A9AC00B0092D /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C09B0F12F25A9AC00B0092D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		5C28CCAB2EF1A37F00D09932 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5C28CCAA2EF1A37F00D09932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
