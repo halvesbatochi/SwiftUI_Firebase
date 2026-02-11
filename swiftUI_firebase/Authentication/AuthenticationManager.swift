@@ -109,6 +109,14 @@ extension AuthenticationManager {
         let authDataResult = try await Auth.auth().signIn(with: credential)
         return AuthDataResultModel(user: authDataResult.user)
     }
+    
+    func delete() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badURL)
+        }
+        
+        try await user.delete()
+    }
 }
 
 // MARK: SIGN IN ANONYMOUS
@@ -138,4 +146,5 @@ extension AuthenticationManager {
         let authDataResult = try await user.link(with: credential)
         return AuthDataResultModel(user: authDataResult.user)
     }
+    
 }
