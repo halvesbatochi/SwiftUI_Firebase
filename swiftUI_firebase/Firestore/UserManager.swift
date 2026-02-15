@@ -16,7 +16,8 @@ struct DBUser: Codable {
     let email: String?
     let photoUrl: String?
     let dateCreated: Date?
-    var isPremium: Bool?
+    let isPremium: Bool?
+    let preferences: [String]?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
@@ -25,6 +26,7 @@ struct DBUser: Codable {
         self.photoUrl = auth.photoUrl
         self.dateCreated = Date()
         self.isPremium = false
+        self.preferences = nil
     }
     
     init (
@@ -34,6 +36,7 @@ struct DBUser: Codable {
         photoUrl: String? = nil,
         dateCreated: Date? = nil,
         isPremium: Bool? = nil,
+        preferences: [String]? = nil
     ) {
         self.userId = userId
         self.isAnonymous = isAnonymous
@@ -41,6 +44,7 @@ struct DBUser: Codable {
         self.photoUrl = photoUrl
         self.dateCreated = dateCreated
         self.isPremium = isPremium
+        self.preferences = preferences
     }
     
     enum CodingKeys: String, CodingKey {
@@ -50,6 +54,7 @@ struct DBUser: Codable {
         case photoUrl = "photo_url"
         case dateCreated = "date_created"
         case isPremium = "is_premium"
+        case preferences = "preferences"
     }
     
     init(from decoder: any Decoder) throws {
@@ -60,6 +65,7 @@ struct DBUser: Codable {
         self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
         self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
         self.isPremium = try container.decodeIfPresent(Bool.self, forKey: .isPremium)
+        self.preferences = try container.decodeIfPresent([String].self, forKey: .preferences)
     }
     
     func encode(to encoder: any Encoder) throws {
@@ -70,6 +76,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
         try container.encodeIfPresent(self.isPremium, forKey: .isPremium)
+        try container.encodeIfPresent(self.preferences, forKey: .preferences)
     }
     
 //    func togglePremiumStatus() -> DBUser {
@@ -163,6 +170,20 @@ final class UserManager {
     func updateUserPremiumStatus(userId: String, isPremium: Bool) async throws {
         let data: [String:Any] = [
             DBUser.CodingKeys.isPremium.rawValue : isPremium
+        ]
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    func addUserPreference(userId: String, preference: String) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.preferences.rawValue : FieldValue.arrayUnion([preference])
+        ]
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    func removeUserPreference(userId: String, preference: String) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.preferences.rawValue : FieldValue.arrayRemove([preference])
         ]
         try await userDocument(userId: userId).updateData(data)
     }
