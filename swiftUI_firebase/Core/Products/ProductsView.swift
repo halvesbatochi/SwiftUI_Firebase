@@ -33,6 +33,8 @@ final class ProductsViewModel: ObservableObject {
     
     func filterSelected(option: FilterOption) async throws {
         self.selectedFilter = option
+        self.products = []
+        self.lastDocument = nil
         getProducts()
     }
     
@@ -52,6 +54,8 @@ final class ProductsViewModel: ObservableObject {
     
     func categorySelected(option: CategoryOption) async throws {
         self.selectedCategory = option
+        self.products = []
+        self.lastDocument = nil
         self.getProducts()
     }
     
@@ -59,20 +63,11 @@ final class ProductsViewModel: ObservableObject {
         Task {
             let (newProducts, lasDocument) = try await ProductsManager.shared.getAllProducts(priceDescending: selectedFilter?.priceDescending, forCategory: selectedCategory?.categoryKey, count: 10, lastDocument: lastDocument)
             self.products.append(contentsOf: newProducts)
-            self.lastDocument = lastDocument
+            if let lasDocument {
+                self.lastDocument = lastDocument
+            }
         }
     }
-    
-//    func getProductByRating() {
-//        Task {
-////            self.products = try await ProductsManager.shared.getProductsByRating(count: 3, lastRating: self.products.last?.rating)
-//            
-//            let (newProducts, lasDocument) = try await ProductsManager.shared.getProductsByRating(count: 3, lastDocument: lastDocument)
-//            self.products.append(contentsOf: newProducts)
-//            self.lastDocument = lastDocument
-//            
-//        }
-//    }
 }
 
 struct ProductsView: View {
@@ -83,6 +78,13 @@ struct ProductsView: View {
         List {
             ForEach(viewModel.products) { product in
                 ProductCellView(product: product)
+                
+                if product == viewModel.products.last {
+                    ProgressView()
+                        .onAppear {
+                            viewModel.getProducts()
+                        }
+                }
             }
         }
         .navigationTitle("Products")
