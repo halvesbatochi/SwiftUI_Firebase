@@ -24,7 +24,7 @@ final class ProductsManager {
         try productsDocument(productId: String(product.id)).setData(from: product, merge: false)
     }
     
-    private func getProduct(productId: String) async throws -> Product {
+    func getProduct(productId: String) async throws -> Product {
         try await productsDocument(productId: productId).getDocument(as: Product.self)
     }
     
